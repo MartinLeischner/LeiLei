@@ -5,6 +5,7 @@ Teilnehmer:
 - Steven Leipold (Matrikelnr.: 577573)
 
 LeiLei ist ein interaktives Haushaltsbuch zur vollen Kontrolle über deine Finanzen.
+
 Coming changes:
 - einfache Übersicht zu Einnahmen und Ausgaben
 - Kategorisierung der Flows (z.B. Miete, Unterhaltung, Versicherungen, etc.)
