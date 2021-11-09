@@ -7,8 +7,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HelloWorldController {
 
-    @GetMapping(path="/favicon.ico")
+    @GetMapping(path="/")
     public ModelAndView showHelloWorldPage () {
+
         return new ModelAndView("helloworld");
     }
 }
