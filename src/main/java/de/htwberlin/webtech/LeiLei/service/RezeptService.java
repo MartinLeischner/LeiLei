@@ -26,6 +26,11 @@ public class RezeptService {
 
     }
 
+    public Rezept findById(Long id){
+        var rezeptEntity = rezeptRepository.findById(id);
+        return rezeptEntity.map(this::transformEntity).orElse(null);
+    }
+
     public Rezept create(RezeptCreateRequest request){
         var rezeptEntity = new RezeptEntity(request.getName(), request.getDifficulty(), request.getIngredient(), request.getTime());
         rezeptEntity = rezeptRepository.save(rezeptEntity);

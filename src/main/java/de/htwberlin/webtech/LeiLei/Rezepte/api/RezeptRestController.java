@@ -4,10 +4,7 @@ import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptEntity;
 import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptRepository;
 import de.htwberlin.webtech.LeiLei.service.RezeptService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,6 +24,12 @@ public class RezeptRestController {
     @GetMapping(path ="/api/v1/rezepte")
     public ResponseEntity<List<Rezept>> fetchRezepte(){
         return ResponseEntity.ok(rezeptService.findAll());
+    }
+
+    @GetMapping(path = "/api/v1/rezepte/{id}")
+    public ResponseEntity<Rezept> fetchRezeptById(@PathVariable Long id){
+        var rezept = rezeptService.findById(id);
+        return rezept != null? ResponseEntity.ok(rezept) : ResponseEntity.notFound().build();
     }
 
     @PostMapping(path ="/api/v1/rezepte")
