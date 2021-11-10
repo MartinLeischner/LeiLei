@@ -42,4 +42,10 @@ public class RezeptRestController {
         var rezept = rezeptService.update(id, request);
         return rezept != null? ResponseEntity.ok(rezept) : ResponseEntity.notFound().build();
     }
+
+    @DeleteMapping(path = "/api/v1/rezepte/{id}")
+    public ResponseEntity<Void> deleteRezept(@PathVariable long id){
+        boolean succesful = rezeptService.deleteById(id);
+        return succesful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
 }

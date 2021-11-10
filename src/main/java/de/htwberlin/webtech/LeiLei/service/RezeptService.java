@@ -55,6 +55,15 @@ public class RezeptService {
         return transformEntity(rezeptEntity);
     }
 
+    public boolean deleteById(Long id){
+        if (!rezeptRepository.existsById(id)){
+            return false;
+        }
+
+        rezeptRepository.deleteById(id);
+        return true;
+    }
+
     private Rezept transformEntity(RezeptEntity rezeptEntity){
         return new Rezept(
                 rezeptEntity.getId(),
