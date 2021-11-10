@@ -1,13 +1,13 @@
 package de.htwberlin.webtech.LeiLei.Rezepte.api;
 
-public class RezeptCreateRequest {
+public class RezeptCreateOrUpdateRequest {
 
     private String name;
     private String ingredient;
     private String difficulty;
     private long time;
 
-    public RezeptCreateRequest(String name, String ingredient, String difficulty, long time) {
+    public RezeptCreateOrUpdateRequest(String name, String ingredient, String difficulty, long time) {
         this.name = name;
         this.ingredient = ingredient;
         this.difficulty = difficulty;

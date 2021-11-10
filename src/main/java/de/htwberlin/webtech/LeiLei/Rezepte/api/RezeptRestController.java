@@ -1,7 +1,5 @@
 package de.htwberlin.webtech.LeiLei.Rezepte.api;
 
-import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptEntity;
-import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptRepository;
 import de.htwberlin.webtech.LeiLei.service.RezeptService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +31,15 @@ public class RezeptRestController {
     }
 
     @PostMapping(path ="/api/v1/rezepte")
-    public ResponseEntity<Void> createRezept(@RequestBody RezeptCreateRequest request) throws URISyntaxException {
+    public ResponseEntity<Void> createRezept(@RequestBody RezeptCreateOrUpdateRequest request) throws URISyntaxException {
         var rezept = rezeptService.create(request);
         URI uri = new URI("/api/v1/rezepte/" + rezept.getId());
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping(path = "/api/v1/rezepte/{id}")
+    public ResponseEntity<Rezept> updateRezept(@PathVariable Long id, RezeptCreateOrUpdateRequest request){
+        var rezept = rezeptService.update(id, request);
+        return rezept != null? ResponseEntity.ok(rezept) : ResponseEntity.notFound().build();
     }
 }

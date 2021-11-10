@@ -1,12 +1,13 @@
 package de.htwberlin.webtech.LeiLei.service;
 
 import de.htwberlin.webtech.LeiLei.Rezepte.api.Rezept;
-import de.htwberlin.webtech.LeiLei.Rezepte.api.RezeptCreateRequest;
+import de.htwberlin.webtech.LeiLei.Rezepte.api.RezeptCreateOrUpdateRequest;
 import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptEntity;
 import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,11 +32,27 @@ public class RezeptService {
         return rezeptEntity.map(this::transformEntity).orElse(null);
     }
 
-    public Rezept create(RezeptCreateRequest request){
+    public Rezept create(RezeptCreateOrUpdateRequest request){
         var rezeptEntity = new RezeptEntity(request.getName(), request.getDifficulty(), request.getIngredient(), request.getTime());
         rezeptEntity = rezeptRepository.save(rezeptEntity);
         return transformEntity(rezeptEntity);
 
+    }
+
+    public Rezept update(Long id, RezeptCreateOrUpdateRequest request){
+        var rezeptEntityOptional  = rezeptRepository.findById(id);
+        if(rezeptEntityOptional.isEmpty()){
+            return null;
+        }
+
+        var rezeptEntity = rezeptEntityOptional.get();
+        rezeptEntity.setName(request.getName());
+        rezeptEntity.setIngredient((request.getIngredient()));
+        rezeptEntity.setDifficulty(request.getDifficulty());
+        rezeptEntity.setTime(request.getTime());
+        rezeptEntity = rezeptRepository.save(rezeptEntity);
+
+        return transformEntity(rezeptEntity);
     }
 
     private Rezept transformEntity(RezeptEntity rezeptEntity){
