@@ -1,6 +1,7 @@
 package de.htwberlin.webtech.LeiLei.service;
 
 import de.htwberlin.webtech.LeiLei.Rezepte.api.Rezept;
+import de.htwberlin.webtech.LeiLei.Rezepte.api.RezeptCreateRequest;
 import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptEntity;
 import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptRepository;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,25 @@ public class RezeptService {
     public List<Rezept> findAll(){
         List<RezeptEntity> rezepte = rezeptRepository.findAll();
         return rezepte.stream()
-                .map(rezeptEntity -> new Rezept(
-                        rezeptEntity.getId(),
-                        rezeptEntity.getName(),
-                        rezeptEntity.getDifficulty(),
-                        rezeptEntity.getIngredient(),
-                        rezeptEntity.getTime()
-                ))
+                .map(this::transformEntity)
                 .collect(Collectors.toList());
 
+    }
+
+    public Rezept create(RezeptCreateRequest request){
+        var rezeptEntity = new RezeptEntity(request.getName(), request.getDifficulty(), request.getIngredient(), request.getTime());
+        rezeptEntity = rezeptRepository.save(rezeptEntity);
+        return transformEntity(rezeptEntity);
+
+    }
+
+    private Rezept transformEntity(RezeptEntity rezeptEntity){
+        return new Rezept(
+                rezeptEntity.getId(),
+                rezeptEntity.getName(),
+                rezeptEntity.getIngredient(),
+                rezeptEntity.getDifficulty(),
+                rezeptEntity.getTime()
+        );
     }
 }
