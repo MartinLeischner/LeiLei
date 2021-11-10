@@ -11,16 +11,16 @@ public class RezeptEntity {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "Rezeptname", nullable = false)
+    @Column(name = "Name", nullable = false)
     private String name;
 
-    @Column(name = "Zutat", nullable = false)
+    @Column(name = "Ingredient", nullable = false)
     private String ingredient;
 
-    @Column(name = "Schwierigkeitsgrad", nullable = true)
+    @Column(name = "Difficulty", nullable = true)
     private String difficulty;
 
-    @Column(name = "Zeit", nullable = true)
+    @Column(name = "Time", nullable = true)
     private long time;
 
     public RezeptEntity(long id, String name, String ingredient, String difficulty, long time) {
