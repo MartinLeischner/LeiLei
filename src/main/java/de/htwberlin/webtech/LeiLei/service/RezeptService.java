@@ -33,7 +33,7 @@ public class RezeptService {
     }
 
     public Rezept create(RezeptCreateOrUpdateRequest request){
-        var rezeptEntity = new RezeptEntity(request.getName(), request.getDifficulty(), request.getIngredient(), request.getTime());
+        var rezeptEntity = new RezeptEntity(request.getName(), request.getIngredient(), request.getDifficulty(), request.getTime());
         rezeptEntity = rezeptRepository.save(rezeptEntity);
         return transformEntity(rezeptEntity);
 

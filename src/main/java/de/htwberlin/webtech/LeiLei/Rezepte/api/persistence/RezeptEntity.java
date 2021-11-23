@@ -9,7 +9,7 @@ public class RezeptEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "Name", nullable = false)
     private String name;
@@ -21,9 +21,9 @@ public class RezeptEntity {
     private String difficulty;
 
     @Column(name = "Time", nullable = true)
-    private long time;
+    private Long time;
 
-    public RezeptEntity(String name, String ingredient, String difficulty, long time) {
+    public RezeptEntity(String name, String ingredient, String difficulty, Long time) {
         this.name = name;
         this.ingredient = ingredient;
         this.difficulty = difficulty;
@@ -33,7 +33,7 @@ public class RezeptEntity {
     protected RezeptEntity() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -61,11 +61,11 @@ public class RezeptEntity {
         this.difficulty = difficulty;
     }
 
-    public long getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 }

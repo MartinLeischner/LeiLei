@@ -2,13 +2,13 @@ package de.htwberlin.webtech.LeiLei.Rezepte.api;
 
 public class Rezept {
 
-    private long id;
+    private Long id;
     private String name;
     private String ingredient;
     private String difficulty;
-    private long time;
+    private Long time;
 
-    public Rezept(long id, String name, String ingredient, String difficulty, long time) {
+    public Rezept(Long id, String name, String ingredient, String difficulty, Long time) {
         this.id = id;
         this.name = name;
         this.ingredient = ingredient;
@@ -16,11 +16,11 @@ public class Rezept {
         this.time = time;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,11 +48,11 @@ public class Rezept {
         this.difficulty = difficulty;
     }
 
-    public long getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 }

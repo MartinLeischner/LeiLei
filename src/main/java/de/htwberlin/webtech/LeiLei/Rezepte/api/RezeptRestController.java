@@ -38,13 +38,13 @@ public class RezeptRestController {
     }
 
     @PutMapping(path = "/api/v1/rezepte/{id}")
-    public ResponseEntity<Rezept> updateRezept(@PathVariable Long id, RezeptCreateOrUpdateRequest request){
+    public ResponseEntity<Rezept> updateRezept(@PathVariable Long id, @RequestBody RezeptCreateOrUpdateRequest request){
         var rezept = rezeptService.update(id, request);
         return rezept != null? ResponseEntity.ok(rezept) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(path = "/api/v1/rezepte/{id}")
-    public ResponseEntity<Void> deleteRezept(@PathVariable long id){
+    public ResponseEntity<Void> deleteRezept(@PathVariable Long id){
         boolean succesful = rezeptService.deleteById(id);
         return succesful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }

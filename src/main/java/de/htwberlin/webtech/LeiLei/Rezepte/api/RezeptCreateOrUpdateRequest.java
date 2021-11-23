@@ -5,9 +5,9 @@ public class RezeptCreateOrUpdateRequest {
     private String name;
     private String ingredient;
     private String difficulty;
-    private long time;
+    private Long time;
 
-    public RezeptCreateOrUpdateRequest(String name, String ingredient, String difficulty, long time) {
+    public RezeptCreateOrUpdateRequest(String name, String ingredient, String difficulty, Long time) {
         this.name = name;
         this.ingredient = ingredient;
         this.difficulty = difficulty;
@@ -38,11 +38,11 @@ public class RezeptCreateOrUpdateRequest {
         this.difficulty = difficulty;
     }
 
-    public long getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 }
