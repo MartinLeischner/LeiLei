@@ -1,4 +1,4 @@
-package de.htwberlin.webtech.LeiLei.Rezepte.api.persistence;
+package de.htwberlin.webtech.LeiLei.persistence;
 
 
 import javax.persistence.*;

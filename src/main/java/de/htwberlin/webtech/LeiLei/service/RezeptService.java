@@ -2,12 +2,11 @@ package de.htwberlin.webtech.LeiLei.service;
 
 import de.htwberlin.webtech.LeiLei.Rezepte.api.Rezept;
 import de.htwberlin.webtech.LeiLei.Rezepte.api.RezeptCreateOrUpdateRequest;
-import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptEntity;
-import de.htwberlin.webtech.LeiLei.Rezepte.api.persistence.RezeptRepository;
+import de.htwberlin.webtech.LeiLei.persistence.RezeptEntity;
+import de.htwberlin.webtech.LeiLei.persistence.RezeptRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
