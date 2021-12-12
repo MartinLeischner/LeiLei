@@ -14,6 +14,8 @@ public class RezeptCreateOrUpdateRequest {
         this.time = time;
     }
 
+    public RezeptCreateOrUpdateRequest () {}
+
     public String getName() {
         return name;
     }
