@@ -1,11 +1,13 @@
 HELP.md
 .gradle
 build/
-data/*.db
 !build/libs
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+data/*.db
+data/rezept_photos/*
 
 ### STS ###
 .apt_generated

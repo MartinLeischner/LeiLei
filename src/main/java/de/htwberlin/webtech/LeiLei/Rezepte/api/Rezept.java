@@ -2,15 +2,17 @@ package de.htwberlin.webtech.LeiLei.Rezepte.api;
 
 public class Rezept {
 
-    private Long id;
+    private Long   id;
     private String name;
+    private String imagePath;
     private String ingredient;
     private String difficulty;
-    private Long time;
+    private Long   time;
 
-    public Rezept(Long id, String name, String ingredient, String difficulty, Long time) {
+    public Rezept(Long id, String name, String imagePath, String ingredient, String difficulty, Long time) {
         this.id = id;
         this.name = name;
+        this.imagePath = imagePath;
         this.ingredient = ingredient;
         this.difficulty = difficulty;
         this.time = time;
@@ -30,6 +32,14 @@ public class Rezept {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getIngredient() {
