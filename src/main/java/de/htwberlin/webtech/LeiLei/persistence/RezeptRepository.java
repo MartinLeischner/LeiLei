@@ -9,4 +9,5 @@ import java.util.List;
 public interface RezeptRepository extends JpaRepository<RezeptEntity, Long> {
 
     List<RezeptEntity> findAllByName(String name);
+
 }

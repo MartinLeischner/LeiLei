@@ -31,10 +31,10 @@ public class RezeptRestController {
     }
 
     @PostMapping(path ="/api/v1/rezepte")
-    public ResponseEntity<Void> createRezept(@RequestBody RezeptCreateOrUpdateRequest request) throws URISyntaxException {
+    public ResponseEntity<Rezept> createRezept(@RequestBody RezeptCreateOrUpdateRequest request) throws URISyntaxException {
         var rezept = rezeptService.create(request);
         URI uri = new URI("/api/v1/rezepte/" + rezept.getId());
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(rezept);
     }
 
     @PutMapping(path = "/api/v1/rezepte/{id}")

@@ -1,13 +1,16 @@
 package de.htwberlin.webtech.LeiLei.persistence;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity(name = "Rezepte")
 public class RezeptEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
     private Long id;
 
