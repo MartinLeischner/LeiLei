@@ -1,30 +1,37 @@
 package de.htwberlin.webtech.LeiLei.persistence;
 
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity(name = "Rezepte")
 public class RezeptEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id")
     private Long id;
 
     @Column(name = "Name", nullable = false)
     private String name;
 
+    @Column(name = "Image")
+    private String imagePath;
+
     @Column(name = "Ingredient", nullable = false)
     private String ingredient;
 
-    @Column(name = "Difficulty", nullable = true)
-    private String difficulty;
+    @Column(name = "Difficulty")
+    private Integer difficulty;
 
-    @Column(name = "Time", nullable = true)
+    @Column(name = "Time")
     private Long time;
 
-    public RezeptEntity(String name, String ingredient, String difficulty, Long time) {
+    public RezeptEntity(String name, String imagePath, String ingredient, Integer difficulty, Long time) {
         this.name = name;
+        this.imagePath = imagePath;
         this.ingredient = ingredient;
         this.difficulty = difficulty;
         this.time = time;
@@ -45,6 +52,14 @@ public class RezeptEntity {
         this.name = name;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public String getIngredient() {
         return ingredient;
     }
@@ -53,11 +68,11 @@ public class RezeptEntity {
         this.ingredient = ingredient;
     }
 
-    public String getDifficulty() {
+    public Integer getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Integer difficulty) {
         this.difficulty = difficulty;
     }
 
