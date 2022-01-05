@@ -6,10 +6,10 @@ public class Rezept {
     private String name;
     private String imagePath;
     private String ingredient;
-    private String difficulty;
+    private Integer difficulty;
     private Long   time;
 
-    public Rezept(Long id, String name, String imagePath, String ingredient, String difficulty, Long time) {
+    public Rezept(Long id, String name, String imagePath, String ingredient, Integer difficulty, Long time) {
         this.id = id;
         this.name = name;
         this.imagePath = imagePath;
@@ -50,11 +50,11 @@ public class Rezept {
         this.ingredient = ingredient;
     }
 
-    public String getDifficulty() {
+    public Integer getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Integer difficulty) {
         this.difficulty = difficulty;
     }
 

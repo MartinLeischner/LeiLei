@@ -24,12 +24,12 @@ public class RezeptEntity {
     private String ingredient;
 
     @Column(name = "Difficulty")
-    private String difficulty;
+    private Integer difficulty;
 
     @Column(name = "Time")
     private Long time;
 
-    public RezeptEntity(String name, String imagePath, String ingredient, String difficulty, Long time) {
+    public RezeptEntity(String name, String imagePath, String ingredient, Integer difficulty, Long time) {
         this.name = name;
         this.imagePath = imagePath;
         this.ingredient = ingredient;
@@ -68,11 +68,11 @@ public class RezeptEntity {
         this.ingredient = ingredient;
     }
 
-    public String getDifficulty() {
+    public Integer getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(Integer difficulty) {
         this.difficulty = difficulty;
     }
 
