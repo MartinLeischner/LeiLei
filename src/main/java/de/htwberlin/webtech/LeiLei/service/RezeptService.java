@@ -56,9 +56,7 @@ public class RezeptService {
     public Rezept create(Rezept rezept,
             @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-        /*String fileName = StringUtils.cleanPath(
-                Objects.requireNonNull(multipartFile.getOriginalFilename())
-        );*/
+        // create unique file name
         var fileExtension = FileUploadUtil.getFileExtension(
                 Objects.requireNonNull(multipartFile.getOriginalFilename())
         );
@@ -68,11 +66,13 @@ public class RezeptService {
                 + "." + fileExtension;
         rezept.setImagePath(fileName);
 
-        RezeptEntity rezeptEntity = fromPojo(rezept);
-        rezeptEntity = rezeptRepository.save(rezeptEntity);
-
         String uploadDir = Constants.STATIC_REZEPT_IMAGES_DIR; //+ "rezept_" + savedRezept.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+        // TODO catch error during file save
+
+        RezeptEntity rezeptEntity = fromPojo(rezept);
+        rezeptEntity = rezeptRepository.save(rezeptEntity);
 
         return fromEntity(rezeptEntity);
     }
@@ -98,6 +98,7 @@ public class RezeptService {
             return false;
         }
 
+        // TODO remove image file if exists
         rezeptRepository.deleteById(id);
         return true;
     }

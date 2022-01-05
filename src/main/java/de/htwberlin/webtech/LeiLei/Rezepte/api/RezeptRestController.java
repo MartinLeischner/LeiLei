@@ -39,6 +39,10 @@ public class RezeptRestController {
         return rezept != null? ResponseEntity.ok(rezept) : ResponseEntity.notFound().build();
     }
 
+    // TODO create method for most favcited Rezept
+
+    // TODO create method for most recent Rezept
+
     @PostMapping(path ="/api/v1/rezepte")
     public ResponseEntity<Rezept> createRezept(Rezept rezept,
             @RequestParam("image") MultipartFile multipartFile) throws URISyntaxException {
@@ -59,7 +63,7 @@ public class RezeptRestController {
 
     @DeleteMapping(path = "/api/v1/rezepte/{id}")
     public ResponseEntity<Void> deleteRezept(@PathVariable Long id){
-        boolean succesful = rezeptService.deleteById(id);
-        return succesful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        boolean successful = rezeptService.deleteById(id);
+        return successful ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 }
