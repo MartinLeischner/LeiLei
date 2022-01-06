@@ -5,12 +5,14 @@ import de.htwberlin.webtech.LeiLei.persistence.RezeptEntity;
 import de.htwberlin.webtech.LeiLei.persistence.RezeptRepository;
 import de.htwberlin.webtech.LeiLei.utils.Constants;
 import de.htwberlin.webtech.LeiLei.utils.FileUploadUtil;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -101,6 +103,12 @@ public class RezeptService {
         // TODO remove image file if exists
         rezeptRepository.deleteById(id);
         return true;
+    }
+
+    public byte[] getImageForRezeptById(Long id) throws IOException {
+        var rezeptEntityOptional = rezeptRepository.findById(id);
+        InputStream in = getClass().getResourceAsStream(rezeptEntityOptional.get().getImagePath());
+        return IOUtils.toByteArray(in);
     }
 
     private Rezept fromEntity(RezeptEntity rezeptEntity) {
