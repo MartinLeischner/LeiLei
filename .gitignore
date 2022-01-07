@@ -7,7 +7,7 @@ build/
 !**/src/test/**/build/
 
 data/*.db
-data/rezept_photos/*
+storage
 
 ### STS ###
 .apt_generated
