@@ -1,7 +1,11 @@
 package de.htwberlin.webtech.LeiLei.Rezepte.api;
 
 import de.htwberlin.webtech.LeiLei.service.RezeptService;
+import de.htwberlin.webtech.LeiLei.utils.Constants;
+import de.htwberlin.webtech.LeiLei.utils.LeiLeiFileUtils;
+import org.apache.commons.io.FileUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.util.List;
 
 @RestController
@@ -40,19 +45,24 @@ public class RezeptRestController {
         return rezept != null? ResponseEntity.ok(rezept) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping(path = "/api/v1/rezepte/{id}/image")
-    public ResponseEntity<File> getImageForRezeptById(@PathVariable Long id) {
-        byte[] image = rezeptService.getImageForRezeptById(id);
-        return ResponseEntity.ok(image);
+    @GetMapping(path = "/api/v1/rezepte/{id}/image", produces = "image/jpeg")
+    public ResponseEntity<byte[]> getImageForRezeptById(@PathVariable Long id) throws IOException {
+        var rezept = rezeptService.findById(id);
+        if (rezept != null) {
+            File image = LeiLeiFileUtils.getFile(Constants.STATIC_REZEPT_IMAGES_DIR, rezept.getImageName());
+            byte[] imageBytes = FileUtils.readFileToByteArray(image);
+            return ResponseEntity.ok(imageBytes);
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    // TODO create method for most favcited Rezept
+    // TODO create method for most favorite Rezept
 
     // TODO create method for most recent Rezept
 
     @PostMapping(path ="/api/v1/rezepte")
     public ResponseEntity<Rezept> createRezept(Rezept rezept,
-            @RequestParam("image") MultipartFile multipartFile) throws URISyntaxException {
+            @RequestParam("image") @Nullable MultipartFile multipartFile) throws URISyntaxException {
         try {
             var savedRezept = rezeptService.create(rezept, multipartFile);
             URI uri = new URI("/api/v1/rezepte/" + savedRezept.getId());

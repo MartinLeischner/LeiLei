@@ -4,15 +4,14 @@ import de.htwberlin.webtech.LeiLei.Rezepte.api.Rezept;
 import de.htwberlin.webtech.LeiLei.persistence.RezeptEntity;
 import de.htwberlin.webtech.LeiLei.persistence.RezeptRepository;
 import de.htwberlin.webtech.LeiLei.utils.Constants;
-import de.htwberlin.webtech.LeiLei.utils.FileUploadUtil;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import de.htwberlin.webtech.LeiLei.utils.LeiLeiFileUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -56,22 +55,22 @@ public class RezeptService {
      * @throws IOException
      */
     public Rezept create(Rezept rezept,
-            @RequestParam("image") MultipartFile multipartFile) throws IOException {
+            @RequestParam("image") @Nullable MultipartFile multipartFile) throws IOException {
 
-        // create unique file name
-        var fileExtension = FileUploadUtil.getFileExtension(
-                Objects.requireNonNull(multipartFile.getOriginalFilename())
-        );
-        var formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        var fileName = "rezept_"
-                + formatter.format(new Date())
-                + "." + fileExtension;
-        rezept.setImagePath(fileName);
+        if (multipartFile != null) {
+            // create unique file name
+            var fileExtension = LeiLeiFileUtils.getFileExtension(
+                    Objects.requireNonNull(multipartFile.getOriginalFilename())
+            );
+            var formatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+            var fileName = "rezept_"
+                    + formatter.format(new Date())
+                    + "." + fileExtension;
+            rezept.setImageName(fileName);
 
-        String uploadDir = Constants.STATIC_REZEPT_IMAGES_DIR; //+ "rezept_" + savedRezept.getId();
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-
-        // TODO catch error during file save
+            String uploadDir = Constants.STATIC_REZEPT_IMAGES_DIR;
+            LeiLeiFileUtils.saveFile(uploadDir, fileName, multipartFile);
+        }
 
         RezeptEntity rezeptEntity = fromPojo(rezept);
         rezeptEntity = rezeptRepository.save(rezeptEntity);
@@ -105,12 +104,6 @@ public class RezeptService {
         return true;
     }
 
-    public byte[] getImageForRezeptById(Long id) throws IOException {
-        var rezeptEntityOptional = rezeptRepository.findById(id);
-        InputStream in = getClass().getResourceAsStream(rezeptEntityOptional.get().getImagePath());
-        return IOUtils.toByteArray(in);
-    }
-
     private Rezept fromEntity(RezeptEntity rezeptEntity) {
         var baseUrl = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -120,7 +113,7 @@ public class RezeptService {
         return new Rezept(
                 rezeptEntity.getId(),
                 rezeptEntity.getName(),
-                baseUrl + Constants.STATIC_REZEPT_IMAGES_DIR + rezeptEntity.getImagePath(),
+                rezeptEntity.getImageName(),
                 rezeptEntity.getIngredient(),
                 rezeptEntity.getDifficulty(),
                 rezeptEntity.getTime()
@@ -130,7 +123,7 @@ public class RezeptService {
     private RezeptEntity fromPojo(Rezept rezept) {
         return new RezeptEntity(
                 rezept.getName(),
-                rezept.getImagePath(),
+                rezept.getImageName(),
                 rezept.getIngredient(),
                 rezept.getDifficulty(),
                 rezept.getTime()
