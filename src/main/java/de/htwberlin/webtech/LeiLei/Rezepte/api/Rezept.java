@@ -18,6 +18,8 @@ public class Rezept {
         this.time = time;
     }
 
+    public Rezept() {}
+
     public Long getId() {
         return id;
     }
