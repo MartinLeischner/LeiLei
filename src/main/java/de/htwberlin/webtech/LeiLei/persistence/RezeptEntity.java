@@ -18,7 +18,7 @@ public class RezeptEntity {
     private String name;
 
     @Column(name = "Image")
-    private String imagePath;
+    private String imageName;
 
     @Column(name = "Ingredient", nullable = false)
     private String ingredient;
@@ -29,9 +29,9 @@ public class RezeptEntity {
     @Column(name = "Time")
     private Long time;
 
-    public RezeptEntity(String name, String imagePath, String ingredient, Integer difficulty, Long time) {
+    public RezeptEntity(String name, String imageName, String ingredient, Integer difficulty, Long time) {
         this.name = name;
-        this.imagePath = imagePath;
+        this.imageName = imageName;
         this.ingredient = ingredient;
         this.difficulty = difficulty;
         this.time = time;
@@ -52,12 +52,12 @@ public class RezeptEntity {
         this.name = name;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageName(String imagePath) {
+        this.imageName = imagePath;
     }
 
     public String getIngredient() {

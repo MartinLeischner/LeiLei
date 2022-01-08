@@ -4,19 +4,21 @@ public class Rezept {
 
     private Long   id;
     private String name;
-    private String imagePath;
+    private String imageName;
     private String ingredient;
     private Integer difficulty;
     private Long   time;
 
-    public Rezept(Long id, String name, String imagePath, String ingredient, Integer difficulty, Long time) {
+    public Rezept(Long id, String name, String imageName, String ingredient, Integer difficulty, Long time) {
         this.id = id;
         this.name = name;
-        this.imagePath = imagePath;
+        this.imageName = imageName;
         this.ingredient = ingredient;
         this.difficulty = difficulty;
         this.time = time;
     }
+
+    public Rezept() {}
 
     public Long getId() {
         return id;
@@ -34,12 +36,12 @@ public class Rezept {
         this.name = name;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String getIngredient() {
