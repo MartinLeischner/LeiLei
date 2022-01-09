@@ -5,12 +5,10 @@ import de.htwberlin.webtech.LeiLei.persistence.RezeptEntity;
 import de.htwberlin.webtech.LeiLei.persistence.RezeptRepository;
 import de.htwberlin.webtech.LeiLei.utils.Constants;
 import de.htwberlin.webtech.LeiLei.utils.LeiLeiFileUtils;
-import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
