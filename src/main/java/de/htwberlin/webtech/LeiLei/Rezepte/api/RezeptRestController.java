@@ -22,11 +22,18 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+/**
+ *
+ */
 @RestController
 public class RezeptRestController {
 
     private final RezeptService rezeptService;
 
+    /**
+     *
+     * @param rezeptService
+     */
     public RezeptRestController(RezeptService rezeptService) {
         this.rezeptService = rezeptService;
     }
@@ -51,6 +58,12 @@ public class RezeptRestController {
         return rezept != null? ResponseEntity.ok(rezept) : ResponseEntity.notFound().build();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws IOException
+     */
     @GetMapping(path = "/api/v1/rezepte/{id}/image", produces = "image/jpeg")
     public ResponseEntity<byte[]> getImageForRezeptById(@PathVariable Long id) throws IOException {
         var rezept = rezeptService.findById(id);
@@ -62,10 +75,13 @@ public class RezeptRestController {
         return ResponseEntity.notFound().build();
     }
 
-    // TODO create method for most favorite Rezept
-
-    // TODO create method for most recent Rezept
-
+    /**
+     *
+     * @param rezept
+     * @param multipartFile
+     * @return
+     * @throws URISyntaxException
+     */
     @PostMapping(path ="/api/v1/rezepte")
     public ResponseEntity<Rezept> createRezept(Rezept rezept,
             @RequestParam("image") @Nullable MultipartFile multipartFile) throws URISyntaxException {
@@ -78,15 +94,30 @@ public class RezeptRestController {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @param rezept
+     * @return
+     */
     @PutMapping(path = "/api/v1/rezepte/{id}")
     public ResponseEntity<Rezept> updateRezept(@PathVariable Long id, @RequestBody Rezept rezept) {
         var updatedRezept = rezeptService.update(id, rezept);
-        return updatedRezept != null? ResponseEntity.ok(updatedRezept) : ResponseEntity.notFound().build();
+        return (updatedRezept != null) ? ResponseEntity.ok(updatedRezept) : ResponseEntity.notFound().build();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping(path = "/api/v1/rezepte/{id}")
-    public ResponseEntity<Void> deleteRezept(@PathVariable Long id){
-        boolean successful = rezeptService.deleteById(id);
-        return successful ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    public ResponseEntity<Rezept> deleteRezept(@PathVariable Long id){
+        var removedRezept = rezeptService.deleteById(id);
+        return (removedRezept != null) ? ResponseEntity.ok(removedRezept) : ResponseEntity.notFound().build();
     }
+
+    // TODO create method for most favorite Rezept
+
+    // TODO create method for most recent Rezept
 }
