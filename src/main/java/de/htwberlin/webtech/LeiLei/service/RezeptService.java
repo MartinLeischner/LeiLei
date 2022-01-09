@@ -9,7 +9,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -94,22 +93,19 @@ public class RezeptService {
         return fromEntity(rezeptEntity);
     }
 
-    public boolean deleteById(Long id) {
-        if (!rezeptRepository.existsById(id)) {
-            return false;
+    public Rezept deleteById(Long id) {
+        var rezeptEntityOptional = rezeptRepository.findById(id);
+        if (rezeptEntityOptional.isEmpty()) {
+            return null;
         }
 
-        // TODO remove image file if exists
-        rezeptRepository.deleteById(id);
-        return true;
+        var rezeptEntity = rezeptEntityOptional.get();
+        LeiLeiFileUtils.removeFileIfExists(Constants.STATIC_REZEPT_IMAGES_DIR, rezeptEntity.getImageName());
+        rezeptRepository.delete(rezeptEntity);
+        return fromEntity(rezeptEntity);
     }
 
     private Rezept fromEntity(RezeptEntity rezeptEntity) {
-        var baseUrl = ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path("/")
-                .toUriString();
-
         return new Rezept(
                 rezeptEntity.getId(),
                 rezeptEntity.getName(),

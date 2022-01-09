@@ -46,6 +46,13 @@ public class LeiLeiFileUtils {
         return filePath.toFile();
     }
 
+    public static void removeFileIfExists(String dir, String imageName) {
+        File file = getFile(dir, imageName);
+        if (file != null) {
+            file.delete();
+        }
+    }
+
     public static String getFileExtension(String originalFilename) {
         var index = originalFilename.lastIndexOf('.');
         if (index == -1) {
