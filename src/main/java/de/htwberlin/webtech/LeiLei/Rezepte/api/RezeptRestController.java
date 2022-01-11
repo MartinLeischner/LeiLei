@@ -69,8 +69,11 @@ public class RezeptRestController {
         var rezept = rezeptService.findById(id);
         if (rezept != null) {
             File image = LeiLeiFileUtils.getFile(Constants.STATIC_REZEPT_IMAGES_DIR, rezept.getImageName());
-            byte[] imageBytes = FileUtils.readFileToByteArray(image);
-            return ResponseEntity.ok(imageBytes);
+            if (image != null) {
+                byte[] imageBytes = FileUtils.readFileToByteArray(image);
+                return ResponseEntity.ok(imageBytes);
+            }
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.notFound().build();
     }
