@@ -47,6 +47,7 @@ public class LeiLeiFileUtils {
     }
 
     public static void removeFileIfExists(String dir, String imageName) {
+        if (imageName == null) return;
         File file = getFile(dir, imageName);
         if (file != null) {
             file.delete();

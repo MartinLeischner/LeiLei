@@ -110,7 +110,7 @@ public class RezeptRestController {
     }
 
     /**
-     *
+     * Rest Api Call to delete Rezept
      * @param id
      * @return
      */
